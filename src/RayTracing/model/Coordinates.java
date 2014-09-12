@@ -2,46 +2,46 @@ package raytracing.model;
 
 public class Coordinates {
 
-	protected int x;
-	protected int y;
-	protected int z;
-	protected int w;
+	protected double x;
+	protected double y;
+	protected double z;
+	protected double w;
 	
-	public Coordinates(int x, int y, int z) {
+	public Coordinates(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public int getZ() {
+	public double getZ() {
 		return z;
 	}
 
-	public int getW() {
+	public double getW() {
 		return w;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 
-	public void setW(int w) {
+	public void setW(double w) {
 		this.w = w;
 	}
 }

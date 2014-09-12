@@ -3,9 +3,9 @@ package raytracing.model;
 public class Sphere extends Object {
 
 	private Point center;
-	private int radius;
+	private double radius;
 	
-	public Sphere(Point center, int radius, double ka, double kd, double ks, Color color) {
+	public Sphere(Point center, double radius, double ka, double kd, double ks, Color color) {
 		super(ka, kd, ks, color);
 		this.center = center;
 		this.radius = radius;
@@ -15,7 +15,7 @@ public class Sphere extends Object {
 		return center;
 	}
 
-	public int getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
@@ -23,7 +23,7 @@ public class Sphere extends Object {
 		this.center = center;
 	}
 
-	public void setRadius(int radius) {
+	public void setRadius(double radius) {
 		this.radius = radius;
 	}
 }
