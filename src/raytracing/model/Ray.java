@@ -1,5 +1,8 @@
 package raytracing.model;
 
+import raytracing.model.basics.Point;
+import raytracing.model.basics.Vector;
+
 public class Ray {
 
 	private Point start;
@@ -8,6 +11,7 @@ public class Ray {
 	public Ray(Point start, Vector direction) {
 		this.start = start;
 		this.direction = direction;
+		this.direction.normalize();
 	}
 
 	public Point getStart() {
@@ -24,5 +28,12 @@ public class Ray {
 
 	public void setDirection(Vector direction) {
 		this.direction = direction;
+	}
+	
+	public Point getPointAt(double t) {
+		double x = start.getX() + t*direction.getX();
+		double y = start.getY() + t*direction.getY();
+		double z = start.getZ() + t*direction.getZ();
+		return new Point(x, y, z);
 	}
 }
