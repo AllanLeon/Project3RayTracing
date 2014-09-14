@@ -2,7 +2,7 @@ package raytracing.model.basics;
 
 public class Point extends Coordinates {
 
-	public Point(int x, int y, int z) {
+	public Point(double x, double y, double z) {
 		super(x, y, z);
 		w = 1;
 	}

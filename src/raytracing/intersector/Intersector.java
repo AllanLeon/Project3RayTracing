@@ -25,7 +25,7 @@ public class Intersector {
 				return t0;
 			}
 		} else {
-			return 0;
+			return 9999999;
 		}
 	}
 }

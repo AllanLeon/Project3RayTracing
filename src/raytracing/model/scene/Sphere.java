@@ -1,6 +1,8 @@
 package raytracing.model.scene;
 
+import raytracing.intersector.Intersector;
 import raytracing.model.Color;
+import raytracing.model.Ray;
 import raytracing.model.basics.Point;
 import raytracing.model.basics.Vector;
 
@@ -39,5 +41,10 @@ public class Sphere extends Object {
 		Vector r = new Vector(x, y, z);
 		r.normalize();
 		return r;
+	}
+
+	@Override
+	public double checkIntersection(Ray ray) {
+		return Intersector.raySphereIntersection(ray, this);
 	}
 }

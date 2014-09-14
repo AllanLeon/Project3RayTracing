@@ -1,6 +1,7 @@
 package raytracing.model.scene;
 
 import raytracing.model.Color;
+import raytracing.model.Ray;
 import raytracing.model.basics.Point;
 import raytracing.model.basics.Vector;
 
@@ -51,4 +52,6 @@ public abstract class Object {
 	}
 	
 	public abstract Vector getNormal(Point p);
+	
+	public abstract double checkIntersection(Ray ray);
 }
