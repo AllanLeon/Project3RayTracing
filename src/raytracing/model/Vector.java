@@ -2,9 +2,8 @@ package raytracing.model;
 
 public class Vector  extends Coordinates{
 
-	public Vector(int x, int y, int z) {
+	public Vector(double x, double y, double z) {
 		super(x, y, z);
-		normalize();
 		w = 0;
 	}
 	

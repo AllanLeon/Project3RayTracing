@@ -26,4 +26,13 @@ public class Sphere extends Object {
 	public void setRadius(double radius) {
 		this.radius = radius;
 	}
+	
+	public Vector getNormal(Point p) {
+		double x = p.getX() - center.getX();
+		double y = p.getY() - center.getY();
+		double z = p.getZ() - center.getZ();
+		Vector r = new Vector(x, y, z);
+		r.normalize();
+		return r;
+	}
 }
