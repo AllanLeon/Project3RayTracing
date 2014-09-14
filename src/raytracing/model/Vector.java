@@ -13,4 +13,15 @@ public class Vector  extends Coordinates{
 		y /= scale;
 		z /= scale;
 	}
+	
+	public static Vector invert(Vector a) {
+		double x = -a.getX();
+		double y = -a.getY();
+		double z = -a.getZ();
+		return new Vector(x, y, z);
+	}
+	
+	public static double dotProduct(Vector a, Vector b) {
+		return a.getX()*b.getX() + a.getY()*b.getY() + a.getZ()*b.getZ();
+	}
 }
