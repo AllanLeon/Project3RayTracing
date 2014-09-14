@@ -12,7 +12,7 @@ import raytracing.model.Object;
 public class Phong {
 
 	public static Color chromaticPhong(Point p, Object o, Scene scene) {
-		Color envComp = environmentalComponent(scene);
+		Color envComp = environmentalComponent(o, scene);
 		Color difComp = diffuseComponent(p, o, scene);
 		Color speComp = specularComponent(p, o, scene);
 		double r = envComp.getR() + difComp.getR() + speComp.getR();
@@ -23,18 +23,20 @@ public class Phong {
 		return phong;
 	}
 	
-	private static Color environmentalComponent(Scene scene) {
+	private static Color environmentalComponent(Object o, Scene scene) {
 		Color ia = scene.getEnvironmentalLightColor();
+		Color objectColor = o.getColor();
 		double ka = scene.getEnvironmentalCoef();
-		double r = ia.getR() * ka;
-		double g = ia.getG() * ka;
-		double b = ia.getB() * ka;
+		double r = ia.getR() * ka * objectColor.getR();
+		double g = ia.getG() * ka * objectColor.getG();
+		double b = ia.getB() * ka * objectColor.getB();
 		return new Color(r, g, b);
 	}
 	
 	private static Color diffuseComponent(Point p, Object o, Scene scene) {
 		List<Light> lights = scene.getLights();
 		Vector normal = o.getNormal(p);
+		Color objectColor = o.getColor();
 		double r = 0;
 		double g = 0;
 		double b = 0;
@@ -45,9 +47,9 @@ public class Phong {
 			g += lightColor.getG()*dotP;
 			b += lightColor.getB()*dotP;
 		}
-		r *= o.getKd();
-		g *= o.getKd();
-		b *= o.getKd();
+		r *= o.getKd() * objectColor.getR();
+		g *= o.getKd() * objectColor.getG();
+		b *= o.getKd() * objectColor.getB();
 		return new Color(r, g, b);
 	}
 	
