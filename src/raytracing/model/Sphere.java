@@ -5,8 +5,8 @@ public class Sphere extends Object {
 	private Point center;
 	private double radius;
 	
-	public Sphere(Point center, double radius, double ka, double kd, double ks, Color color) {
-		super(ka, kd, ks, color);
+	public Sphere(Point center, double radius, Color color, double kd, double ks, int n) {
+		super(color, kd, ks, n);
 		this.center = center;
 		this.radius = radius;
 	}

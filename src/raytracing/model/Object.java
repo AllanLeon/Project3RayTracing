@@ -2,18 +2,16 @@ package raytracing.model;
 
 public abstract class Object {
 
-	private double ka, kd, ks;
+	//n: specular reflection exponent
+	private int n;
+	private double kd, ks;
 	private Color color;
 	
-	public Object(double ka, double kd, double ks, Color color) {
-		this.ka = ka;
+	public Object(Color color, double kd, double ks, int n) {
 		this.kd = kd;
 		this.ks = ks;
 		this.color = color;
-	}
-
-	public double getKa() {
-		return ka;
+		this.n = n;
 	}
 
 	public double getKd() {
@@ -27,9 +25,9 @@ public abstract class Object {
 	public Color getColor() {
 		return color;
 	}
-
-	public void setKa(double ka) {
-		this.ka = ka;
+	
+	public int getN() {
+		return n;
 	}
 
 	public void setKd(double kd) {
@@ -42,6 +40,10 @@ public abstract class Object {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public void setN(int n) {
+		this.n = n;
 	}
 	
 	public abstract Vector getNormal(Point p);
