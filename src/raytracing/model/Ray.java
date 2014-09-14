@@ -1,5 +1,8 @@
 package raytracing.model;
 
+import raytracing.model.basics.Point;
+import raytracing.model.basics.Vector;
+
 public class Ray {
 
 	private Point start;

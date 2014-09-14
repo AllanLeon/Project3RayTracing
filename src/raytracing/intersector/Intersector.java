@@ -1,7 +1,7 @@
 package raytracing.intersector;
 
 import raytracing.model.Ray;
-import raytracing.model.Sphere;
+import raytracing.model.scene.Sphere;
 
 public class Intersector {
 

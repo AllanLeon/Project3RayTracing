@@ -1,4 +1,4 @@
-package raytracing.model;
+package raytracing.model.basics;
 
 public class Point extends Coordinates {
 

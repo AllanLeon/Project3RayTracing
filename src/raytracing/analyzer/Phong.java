@@ -3,11 +3,11 @@ package raytracing.analyzer;
 import java.util.List;
 
 import raytracing.model.Color;
-import raytracing.model.Light;
-import raytracing.model.Point;
-import raytracing.model.Scene;
-import raytracing.model.Vector;
-import raytracing.model.Object;
+import raytracing.model.basics.Point;
+import raytracing.model.basics.Vector;
+import raytracing.model.scene.Light;
+import raytracing.model.scene.Object;
+import raytracing.model.scene.Scene;
 
 public class Phong {
 

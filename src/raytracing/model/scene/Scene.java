@@ -1,7 +1,9 @@
-package raytracing.model;
+package raytracing.model.scene;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import raytracing.model.Color;
 
 public class Scene {
 

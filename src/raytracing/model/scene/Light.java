@@ -1,4 +1,8 @@
-package raytracing.model;
+package raytracing.model.scene;
+
+import raytracing.model.Color;
+import raytracing.model.basics.Point;
+import raytracing.model.basics.Vector;
 
 public class Light {
 

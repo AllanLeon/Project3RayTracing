@@ -1,6 +1,6 @@
 package raytracing.analyzer;
 
-import raytracing.model.Vector;
+import raytracing.model.basics.Vector;
 
 public class RayAnalyzer {
 
