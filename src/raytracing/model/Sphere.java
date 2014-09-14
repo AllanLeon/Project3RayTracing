@@ -27,6 +27,7 @@ public class Sphere extends Object {
 		this.radius = radius;
 	}
 	
+	@Override
 	public Vector getNormal(Point p) {
 		double x = p.getX() - center.getX();
 		double y = p.getY() - center.getY();

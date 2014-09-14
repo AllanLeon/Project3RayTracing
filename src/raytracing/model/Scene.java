@@ -7,12 +7,12 @@ public class Scene {
 
 	private List<Light> lights;
 	private List<Object> objects;
-	private Color ambientLightColor;
-	private double ambientCoef;
+	private Color environmentalLightColor;
+	private double environmentalCoef;
 	
-	public Scene(Color ambientLightColor, double ambientCoef) {
-		this.ambientLightColor = ambientLightColor;
-		this.ambientCoef = ambientCoef;
+	public Scene(Color environmentalLightColor, double environmentalCoef) {
+		this.environmentalLightColor = environmentalLightColor;
+		this.environmentalCoef = environmentalCoef;
 		this.lights = new ArrayList<Light>();
 		this.objects = new ArrayList<Object>();
 	}
@@ -33,12 +33,12 @@ public class Scene {
 		return objects;
 	}
 
-	public Color getAmbientLightColor() {
-		return ambientLightColor;
+	public Color getEnvironmentalLightColor() {
+		return environmentalLightColor;
 	}
 
-	public double getAmbientCoef() {
-		return ambientCoef;
+	public double getEnvironmentalCoef() {
+		return environmentalCoef;
 	}
 
 	public void setLights(List<Light> lights) {
@@ -49,11 +49,11 @@ public class Scene {
 		this.objects = objects;
 	}
 
-	public void setAmbientLightColor(Color ambientLightColor) {
-		this.ambientLightColor = ambientLightColor;
+	public void setEnvironmentalLightColor(Color environmentalLightColor) {
+		this.environmentalLightColor = environmentalLightColor;
 	}
 
-	public void setAmbientCoef(double ambientCoef) {
-		this.ambientCoef = ambientCoef;
+	public void setEnvironmentalCoef(double environmentalCoef) {
+		this.environmentalCoef = environmentalCoef;
 	}
 }

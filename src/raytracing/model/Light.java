@@ -19,9 +19,9 @@ public class Light {
 	}
 	
 	public Vector getDirection(Point p) {
-		double x = p.getX() - position.getX();
-		double y = p.getY() - position.getY();
-		double z = p.getZ() - position.getZ();
+		double x = position.getX() - p.getX();
+		double y = position.getY() - p.getY();
+		double z = position.getZ() - p.getZ();
 		Vector l = new Vector(x, y, z);
 		l.normalize();
 		return l;

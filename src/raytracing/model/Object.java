@@ -1,6 +1,6 @@
 package raytracing.model;
 
-public class Object {
+public abstract class Object {
 
 	private double ka, kd, ks;
 	private Color color;
@@ -43,4 +43,6 @@ public class Object {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public abstract Vector getNormal(Point p);
 }
