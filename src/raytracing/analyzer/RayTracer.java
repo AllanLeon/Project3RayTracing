@@ -1,8 +1,10 @@
 package raytracing.analyzer;
 
+import raytracing.data.WindowConstants;
 import raytracing.model.Color;
 import raytracing.model.Ray;
 import raytracing.model.basics.Point;
+import raytracing.model.basics.Vector;
 import raytracing.model.scene.Object;
 import raytracing.model.scene.Scene;
 
@@ -41,5 +43,12 @@ public class RayTracer {
 				oMin = object;
 			}
 		}
+	}
+	
+	public Ray createPixelRay(int x, int y) {
+		Point start = new Point(0, 0, -100);
+		Vector direction = new Vector(x - start.getX() - (WindowConstants.WIDTH / 2),
+				y - start.getY() - (WindowConstants.HEIGHT / 2), 0 - start.getZ());
+		return new Ray(start, direction);
 	}
 }

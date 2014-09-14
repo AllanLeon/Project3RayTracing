@@ -69,7 +69,7 @@ public class Phong {
 		for (int i = 0; i < lights.size(); i++) {
 			Color lightColor = lights.get(i).getColor();
 			Vector l = Vector.invert(lights.get(i).getDirection(p));
-			Vector reflection = RayAnalyzer.perfectSpecularReflection(l, normal);
+			Vector reflection = LightAnalyzer.perfectSpecularReflection(l, normal);
 			double dotP = Vector.dotProduct(obsVec, reflection);
 			r += lightColor.getR()*Math.pow(dotP, n);
 			g += lightColor.getG()*Math.pow(dotP, n);
