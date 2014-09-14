@@ -11,6 +11,7 @@ public class Ray {
 	public Ray(Point start, Vector direction) {
 		this.start = start;
 		this.direction = direction;
+		this.direction.normalize();
 	}
 
 	public Point getStart() {
