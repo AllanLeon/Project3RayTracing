@@ -13,9 +13,9 @@ public class Intersector {
 		double yd = ray.getDirection().getY();
 		double zd = ray.getDirection().getZ();
 		double r = sphere.getRadius();
-		double b = 2*xd*dx + 2*yd*dy + 2*zd*dz;
+		double b = 2 * xd * dx + 2 * yd * dy + 2 * zd * dz;
 		double c = Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2) - Math.pow(r, 2);
-		double d = Math.pow(b, 2) - 4*c;
+		double d = Math.pow(b, 2) - 4 * c;
 		if (d > 0) {
 			double t0 = (-b - Math.sqrt(d)) / 2;
 			double t1 = (-b + Math.sqrt(d)) / 2;
