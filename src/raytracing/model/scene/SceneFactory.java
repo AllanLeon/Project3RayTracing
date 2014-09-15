@@ -9,7 +9,7 @@ public class SceneFactory {
 		Color lightColor = new Color(1, 1, 1);
 		Scene scene = new Scene(lightColor, 0.7);
 		Light light1 = new Light(lightColor, new Point(-100, 100, 0));
-		Object sphere1 = new Sphere(new Point(0, 0, 50), 50, new Color(0, 1, 0), 0.8, 0.5, 3);
+		Object sphere1 = new Sphere(new Point(0, 50, 20), 50, new Color(0, 1, 1), 0.4, 1, 7);
 		scene.addLight(light1);
 		scene.addObject(sphere1);
 		return scene;

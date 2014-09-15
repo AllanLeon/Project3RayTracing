@@ -3,24 +3,23 @@ package raytracing;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import raytracing.data.WindowConstants;
+import raytracing.drawer.Drawer;
+import raytracing.model.scene.Scene;
+import raytracing.model.scene.SceneFactory;
 
-public class Main extends JFrame implements ActionListener {
+public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	private JPanel mainPanel;
 	private BufferedImage doubleBuffer;
-	private JButton btnMain;
+	private Scene scene;
 
 	/**
 	 * Launch the application.
@@ -56,25 +55,19 @@ public class Main extends JFrame implements ActionListener {
 		getContentPane().setLayout(null);
 
 		mainPanel = new JPanel();
-		mainPanel.setBounds(10, 10, WindowConstants.PANEL_WIDTH, WindowConstants.PANEL_HEIGHT);
+		mainPanel.setBounds(0, 0, WindowConstants.WIDTH, WindowConstants.HEIGHT);
 		getContentPane().add(mainPanel);
 		mainPanel.setBackground(Color.BLACK);
-		
-		btnMain = new JButton("Start");
-		btnMain.setBounds(242, 621, 370, 40);
-		getContentPane().add(btnMain);
 
-		doubleBuffer = new BufferedImage(WindowConstants.PANEL_WIDTH, WindowConstants.PANEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
-		start();
-	}
-
-	private void start() {
-		Timer timer = new Timer(1000 / 60, this);
-		timer.start();
+		doubleBuffer = new BufferedImage(WindowConstants.WIDTH, WindowConstants.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		scene = SceneFactory.createBasicScene();
+		paint();
 	}
 
 	private void paint() {
 		Graphics dbg = doubleBuffer.getGraphics();
+		Drawer.drawScene(dbg, scene);
+		mainPanel.getGraphics().drawImage(doubleBuffer, 0, 0, this);
 	}
 
 	@Override
@@ -83,10 +76,5 @@ public class Main extends JFrame implements ActionListener {
 
 	@Override
 	public void paint(Graphics g) {
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		paint();
 	}
 }

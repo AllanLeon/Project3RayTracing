@@ -47,8 +47,8 @@ public class RayTracer {
 	
 	public Ray createPixelRay(int x, int y) {
 		Point start = new Point(0, 0, -100);
-		Vector direction = new Vector(x - start.getX() - (WindowConstants.PANEL_WIDTH / 2),
-				y - start.getY() - (WindowConstants.PANEL_HEIGHT / 2), 0 - start.getZ());
+		Vector direction = new Vector(x - start.getX() - (WindowConstants.WIDTH / 2),
+				y - start.getY() - (WindowConstants.HEIGHT / 2), 0 - start.getZ());
 		return new Ray(start, direction);
 	}
 }
