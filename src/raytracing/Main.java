@@ -7,20 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import raytracing.model.scene.Scene;
-import javax.swing.JButton;
+import raytracing.data.WindowConstants;
 
 public class Main extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 825;
-	private static final int HEIGHT = 700;
-	public static final int PANEL_WIDTH = 800;
-	public static final int PANEL_HEIGHT = 600;
 
 	private JPanel mainPanel;
 	private BufferedImage doubleBuffer;
@@ -53,14 +49,14 @@ public class Main extends JFrame implements ActionListener {
 	 */
 	private void initialize() {
 		setTitle("Omg Ray Tracerz a lot...rays pew pew pew");
-		setSize(WIDTH, HEIGHT);
+		setSize(WindowConstants.WIDTH, WindowConstants.HEIGHT);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
 		mainPanel = new JPanel();
-		mainPanel.setBounds(10, 10, PANEL_WIDTH, PANEL_HEIGHT);
+		mainPanel.setBounds(10, 10, WindowConstants.PANEL_WIDTH, WindowConstants.PANEL_HEIGHT);
 		getContentPane().add(mainPanel);
 		mainPanel.setBackground(Color.BLACK);
 		
@@ -68,7 +64,7 @@ public class Main extends JFrame implements ActionListener {
 		btnMain.setBounds(242, 621, 370, 40);
 		getContentPane().add(btnMain);
 
-		doubleBuffer = new BufferedImage(PANEL_WIDTH, PANEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
+		doubleBuffer = new BufferedImage(WindowConstants.PANEL_WIDTH, WindowConstants.PANEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		start();
 	}
 
