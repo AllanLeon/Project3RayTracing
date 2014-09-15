@@ -12,17 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import raytracing.model.scene.Scene;
+import javax.swing.JButton;
 
 public class Main extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 766;
-	private static final int HEIGHT = 600;
-	public static final int PANEL_WIDTH = 550;
-	public static final int PANEL_HEIGHT = 550;
+	private static final int WIDTH = 825;
+	private static final int HEIGHT = 700;
+	public static final int PANEL_WIDTH = 800;
+	public static final int PANEL_HEIGHT = 600;
 
-	private JPanel princPanel;
+	private JPanel mainPanel;
 	private BufferedImage doubleBuffer;
+	private JButton btnMain;
 
 	/**
 	 * Launch the application.
@@ -50,17 +52,21 @@ public class Main extends JFrame implements ActionListener {
 	 * Initialize and set up the basic components of the frame.
 	 */
 	private void initialize() {
-		setTitle("Porygon 3D");
+		setTitle("Omg Ray Tracerz a lot...rays pew pew pew");
 		setSize(WIDTH, HEIGHT);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		princPanel = new JPanel();
-		princPanel.setBounds(10, 10, 550, 550);
-		getContentPane().add(princPanel);
-		princPanel.setBackground(Color.BLACK);
+		mainPanel = new JPanel();
+		mainPanel.setBounds(10, 10, PANEL_WIDTH, PANEL_HEIGHT);
+		getContentPane().add(mainPanel);
+		mainPanel.setBackground(Color.BLACK);
+		
+		btnMain = new JButton("Start");
+		btnMain.setBounds(242, 621, 370, 40);
+		getContentPane().add(btnMain);
 
 		doubleBuffer = new BufferedImage(PANEL_WIDTH, PANEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		start();
@@ -73,13 +79,6 @@ public class Main extends JFrame implements ActionListener {
 
 	private void paint() {
 		Graphics dbg = doubleBuffer.getGraphics();
-		paintPerspective(dbg);
-	}
-
-	private void paintPerspective(Graphics dbg) {
-		dbg.setColor(Color.BLACK);
-		dbg.fillRect(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
-		princPanel.getGraphics().drawImage(doubleBuffer, 0, 0, this);
 	}
 
 	@Override
@@ -88,10 +87,6 @@ public class Main extends JFrame implements ActionListener {
 
 	@Override
 	public void paint(Graphics g) {
-	}
-
-	public static Scene getScene() {
-		return getScene();
 	}
 
 	@Override
