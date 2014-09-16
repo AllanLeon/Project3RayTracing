@@ -80,4 +80,4 @@ public class Phong {
 		b *= o.getKs();
 		return new Color(r, g, b);
 	}
-}
+	}

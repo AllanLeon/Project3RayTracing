@@ -55,7 +55,7 @@ public class Main extends JFrame {
 		getContentPane().setLayout(null);
 
 		mainPanel = new JPanel();
-		mainPanel.setBounds(0, 0, WindowConstants.WIDTH, WindowConstants.HEIGHT);
+		mainPanel.setBounds(10, 10, WindowConstants.WIDTH, WindowConstants.HEIGHT);
 		getContentPane().add(mainPanel);
 		mainPanel.setBackground(Color.BLACK);
 

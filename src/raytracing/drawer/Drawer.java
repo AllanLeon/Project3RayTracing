@@ -25,5 +25,14 @@ public class Drawer {
 				putPixel(g, x, y, color);
 			}
 		}
+		
+		for (int a = 0; a <= scene.getLights().size(); a++) {
+			//for (int b = 0; b <= scene.getObjects().get(b); x++) {			
+				//Ray ray = tracer.createShadowRay(intersectionPoint, lightEmit);
+			//	Color color = tracer.shadowRayTracing(ray, 3);
+		//		putPixel(g, x, y, color);
+		//	}
+		}
+
 	}
 }
