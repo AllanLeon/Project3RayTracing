@@ -5,6 +5,7 @@ import raytracing.model.Color;
 import raytracing.model.Ray;
 import raytracing.model.basics.Point;
 import raytracing.model.basics.Vector;
+import raytracing.model.scene.Light;
 import raytracing.model.scene.Object;
 import raytracing.model.scene.Scene;
 
@@ -13,6 +14,7 @@ public class RayTracer {
 	private Scene scene;
 	private double tMin;
 	private Object oMin;
+	private Point intersectionPoint;
 	
 	public RayTracer(Scene scene) {
 		this.scene = scene;
@@ -26,7 +28,21 @@ public class RayTracer {
 			if (oMin == null) {
 				return new Color(0, 0, 0);
 			} else {
-				Point intersectionPoint = ray.getPointAt(tMin);
+				intersectionPoint = ray.getPointAt(tMin);
+				return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+			}
+		}
+	}
+	
+	public Color shadowRayTracing(Ray ray, int depth) {
+		if (depth <= 0) {
+			return new Color(0, 0, 0);
+		} else {
+			checkIntersections(ray);
+			if (oMin == null) {
+				return new Color(0, 0, 0);
+			} else {
+				intersectionPoint = ray.getPointAt(tMin);
 				return Phong.chromaticPhong(intersectionPoint, oMin, scene);
 			}
 		}
@@ -50,6 +66,13 @@ public class RayTracer {
 		Vector direction = new Vector(x - start.getX() - (WindowConstants.WIDTH / 2),
 				y - start.getY() - (WindowConstants.HEIGHT / 2), 0 - start.getZ());
 		direction.normalize();
+		return new Ray(start, direction);
+	}
+	
+	public Ray createShadowRay(Point intersectionPoint, Light lightEmit) {
+		Point start = intersectionPoint;
+		Vector direction = new Vector(lightEmit.getPosition().getX() - start.getX(),
+					lightEmit.getPosition().getY() - start.getY(), 0 - start.getZ());
 		return new Ray(start, direction);
 	}
 }
