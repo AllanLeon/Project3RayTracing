@@ -41,12 +41,14 @@ public class Phong {
 		double g = 0;
 		double b = 0;
 		for (int i = 0; i < lights.size(); i++) {
-			Color lightColor = lights.get(i).getColor();
-			double dotP = Vector.dotProduct(normal, lights.get(i).getNormalizedDirection(p));
+			Light light = lights.get(i);
+			Color lightColor = light.getColor();
+			double dotP = Vector.dotProduct(normal, light.getNormalizedDirection(p));
 			if (dotP > 0) {
-				r += lightColor.getR()*dotP;
-				g += lightColor.getG()*dotP;
-				b += lightColor.getB()*dotP;
+				double attenuationFactor = calculateAttenuationFactor(light, p);
+				r += lightColor.getR()*dotP * attenuationFactor;
+				g += lightColor.getG()*dotP * attenuationFactor;
+				b += lightColor.getB()*dotP * attenuationFactor;
 			}
 		}
 		r *= o.getKd() * objectColor.getR();
@@ -69,19 +71,28 @@ public class Phong {
 		double b = 0;
 		int n = o.getN();
 		for (int i = 0; i < lights.size(); i++) {
-			Color lightColor = lights.get(i).getColor();
-			Vector l = Vector.invert(lights.get(i).getNormalizedDirection(p));
+			Light light = lights.get(i);
+			Color lightColor = light.getColor();
+			Vector l = Vector.invert(light.getNormalizedDirection(p));
 			Vector reflection = GeometricAnalyzer.perfectSpecularReflection(l, normal);
 			double dotP = Vector.dotProduct(obsVec, reflection);
 			if (dotP > 0) {
-				r += lightColor.getR()*Math.pow(dotP, n);
-				g += lightColor.getG()*Math.pow(dotP, n);
-				b += lightColor.getB()*Math.pow(dotP, n);
+				double attenuationFactor = calculateAttenuationFactor(light, p);
+				r += lightColor.getR()*Math.pow(dotP, n) * attenuationFactor;
+				g += lightColor.getG()*Math.pow(dotP, n) * attenuationFactor;
+				b += lightColor.getB()*Math.pow(dotP, n) * attenuationFactor;
 			}
 		}
 		r *= o.getKs();
 		g *= o.getKs();
 		b *= o.getKs();
 		return new Color(r, g, b);
+	}
+
+	private static double calculateAttenuationFactor(Light light, Point p) {
+		double distance = p.getDistanceTo(light.getPosition());
+		double attenuationFactor = 1 / (1 + 1 * distance + 1 * Math.pow(distance, 2));
+		//return Math.min(attenuationFactor, 1);
+		return 1;
 	}
 }
