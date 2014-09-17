@@ -11,15 +11,16 @@ public class SceneFactory {
 		Light light1 = new Light(lightColor, new Point(0, 0, -80));
 		Object sphere1 = new Sphere(new Point(0, 0, 0), 70, new Color(0, 1, 1), 0.4, 1, 7);*/
 		Scene scene = new Scene(lightColor, 0.7);
-		Light light1 = new Light(lightColor, new Point(-100, 100, 0));
+		Light light1 = new Light(lightColor, new Point(-120, 120, -40));
 		Light light2 = new Light(lightColor, new Point(100, 100, 0));
-		Object sphere1 = new Sphere(new Point(0, 0, 100), 80, new Color(0, 1, 1), 0.4, 1, 7, false);
-		Object sphere2 = new Sphere(new Point(-40, 40, 0), 50, new Color(1, 0, 0), 0.4, 1, 7, true);
-		//Object sphere2 = new Sphere(new Point(100, 100, 100), 80, new Color(1, 1, 1), 50, 1, 100);
+		Object sphere1 = new Sphere(new Point(0, 0, 100), 80, new Color(0, 0, 1), 0.4, 1, 7, true);
+		Object sphere2 = new Sphere(new Point(-40, 40, 0), 20, new Color(1, 0, 0), 0.4, 1, 7, false);
+		Object sphere3 = new Sphere(new Point(-80, 80, 0), 10, new Color(0, 1, 0), 0.4, 1, 7);
 		scene.addLight(light1);
 		scene.addLight(light2);
 		scene.addObject(sphere1);
 		scene.addObject(sphere2);
+		scene.addObject(sphere3);
 		return scene;
 	}
 }

@@ -20,6 +20,14 @@ public abstract class Object {
 		this.n = n;
 		this.isMirror = ismirror;
 	}
+	
+	public Object(Color color, double kd, double ks, int n) {
+		this.kd = kd;
+		this.ks = ks;
+		this.color = color;
+		this.n = n;
+		this.isMirror = false;
+	}
 
 	public double getKd() {
 		return kd;

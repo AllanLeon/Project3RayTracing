@@ -21,35 +21,33 @@ public class RayTracer {
 	}
 
 	public Color rayTracing(Ray ray, int depth) {
-		boolean existsMirroring = false;
-		for (int i = 0; i < scene.getObjects().size(); i++) {
-			if (scene.getObjects().get(i).isMirror()) {
-				existsMirroring = true;
-				break;
-			}
-			existsMirroring = false;
-		}
-		
 		if (depth <= 0) {
 			return new Color(0, 0, 0);
-		} else if (existsMirroring) {
-			intersectionPoint = ray.getPointAt(tMin);
-			Vector mirrorDir = GeometricAnalyzer.perfectSpecularReflection(ray.getDirection(), oMin.getNormal(intersectionPoint));
-			Ray mirrorRay = new Ray(intersectionPoint, mirrorDir);
-			return rayTracing(mirrorRay, depth - 1);
 		} else {
 			checkIntersections(ray);
 			if (oMin == null) {
 				return new Color(0, 0, 0);
 			} else {
 				intersectionPoint = ray.getPointAt(tMin);
+				Color localColor;
 				if (checkShadowRayIntersections()) {
-					Color color = Phong.environmentalComponent(oMin, scene);
-					color.checkBounds();
-					return color;
+					localColor = Phong.environmentalComponent(oMin, scene);
 				} else {
-					return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+					localColor = Phong.chromaticPhong(intersectionPoint, oMin, scene);
 				}
+				localColor.checkBounds();
+				if (oMin.isMirror()) {
+					Vector mirrorDir = Vector.invert(GeometricAnalyzer.perfectSpecularReflection(ray.getDirection(), oMin.getNormal(intersectionPoint)));
+					Ray mirrorRay = new Ray(intersectionPoint, mirrorDir);
+					Color mirrorColor = rayTracing(mirrorRay, depth - 1);
+					double r = localColor.getR() + mirrorColor.getR();
+					double g = localColor.getG() + mirrorColor.getG();
+					double b = localColor.getB() + mirrorColor.getB();
+					Color globalColor = new Color(r, g, b);
+					globalColor.checkBounds();
+					return globalColor;
+				}
+				return localColor;
 			}
 		}
 	}

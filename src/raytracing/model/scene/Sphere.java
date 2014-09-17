@@ -16,6 +16,12 @@ public class Sphere extends Object {
 		this.center = center;
 		this.radius = radius;
 	}
+	
+	public Sphere(Point center, double radius, Color color, double kd, double ks, int n) {
+		super(color, kd, ks, n);
+		this.center = center;
+		this.radius = radius;
+	}
 
 	public Point getCenter() {
 		return center;
