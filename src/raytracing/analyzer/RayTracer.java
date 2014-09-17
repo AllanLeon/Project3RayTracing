@@ -21,8 +21,22 @@ public class RayTracer {
 	}
 
 	public Color rayTracing(Ray ray, int depth) {
+		boolean existsMirroring = false;
+		for (int i = 0; i < scene.getObjects().size(); i++) {
+			if (scene.getObjects().get(i).isMirror()) {
+				existsMirroring = true;
+				break;
+			}
+			existsMirroring = false;
+		}
+		
 		if (depth <= 0) {
 			return new Color(0, 0, 0);
+		} else if (existsMirroring) {
+			intersectionPoint = ray.getPointAt(tMin);
+			Vector mirrorDir = GeometricAnalyzer.perfectSpecularReflection(ray.getDirection(), oMin.getNormal(intersectionPoint));
+			Ray mirrorRay = new Ray(intersectionPoint, mirrorDir);
+			return rayTracing(mirrorRay, depth - 1);
 		} else {
 			checkIntersections(ray);
 			if (oMin == null) {
