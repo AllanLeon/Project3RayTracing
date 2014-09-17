@@ -29,23 +29,36 @@ public class RayTracer {
 				return new Color(0, 0, 0);
 			} else {
 				intersectionPoint = ray.getPointAt(tMin);
-				return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+				if (checkShadowRayIntersections()) {
+					Color color = Phong.environmentalComponent(oMin, scene);
+					color.checkBounds();
+					return color;
+				} else {
+					return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+				}
 			}
 		}
 	}
 	
-	public Color shadowRayTracing(Ray ray, int depth) {
-		if (depth <= 0) {
-			return new Color(0, 0, 0);
-		} else {
-			checkIntersections(ray);
-			if (oMin == null) {
-				return new Color(0, 0, 0);
-			} else {
-				intersectionPoint = ray.getPointAt(tMin);
-				return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+	public boolean checkShadowRayIntersections() {
+		for (int i = 0; i < scene.getLights().size(); i++) {
+			Light light = scene.getLights().get(i);
+			double dotP = Vector.dotProduct(light.getNormalizedDirection(intersectionPoint), oMin.getNormal(intersectionPoint));
+			if (dotP > 0) {
+				Vector direction = light.getDirection(intersectionPoint);
+				Ray shadowRay = new Ray(intersectionPoint, direction);
+				for (int j = 0; j < scene.getObjects().size(); j++) {
+					Object object = scene.getObjects().get(i);
+					if (oMin != object) {
+						double t = object.checkIntersection(shadowRay);
+						if (t > 0 && t < 1) {
+							return true;
+						}
+					}
+				}
 			}
 		}
+		return false;
 	}
 	
 	private void checkIntersections(Ray ray) {
@@ -66,13 +79,6 @@ public class RayTracer {
 		Vector direction = new Vector(x - start.getX() - (WindowConstants.WIDTH / 2),
 				y - start.getY() - (WindowConstants.HEIGHT / 2), 0 - start.getZ());
 		direction.normalize();
-		return new Ray(start, direction);
-	}
-	
-	public Ray createShadowRay(Point intersectionPoint, Light lightEmit) {
-		Point start = intersectionPoint;
-		Vector direction = new Vector(lightEmit.getPosition().getX() - start.getX(),
-					lightEmit.getPosition().getY() - start.getY(), 0 - start.getZ());
 		return new Ray(start, direction);
 	}
 }

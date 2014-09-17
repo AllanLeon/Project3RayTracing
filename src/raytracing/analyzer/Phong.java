@@ -23,7 +23,7 @@ public class Phong {
 		return phong;
 	}
 	
-	private static Color environmentalComponent(Object o, Scene scene) {
+	public static Color environmentalComponent(Object o, Scene scene) {
 		Color ia = scene.getEnvironmentalLightColor();
 		Color objectColor = o.getColor();
 		double ka = scene.getEnvironmentalCoef();
