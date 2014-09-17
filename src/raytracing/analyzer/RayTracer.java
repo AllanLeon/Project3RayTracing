@@ -29,7 +29,6 @@ public class RayTracer {
 				return new Color(0, 0, 0);
 			} else {
 				intersectionPoint = ray.getPointAt(tMin);
-				//System.out.println(intersectionPoint.getX() + " " + intersectionPoint.getY() + " " + intersectionPoint.getZ());
 				if (checkShadowRayIntersections()) {
 					Color color = Phong.environmentalComponent(oMin, scene);
 					color.checkBounds();
@@ -51,9 +50,7 @@ public class RayTracer {
 					if (oMin != object) {
 						Vector direction = light.getDirection(intersectionPoint);
 						Ray shadowRay = new Ray(intersectionPoint, direction);
-						System.out.println(intersectionPoint.getX() + " " + intersectionPoint.getY() + " " + intersectionPoint.getZ() + " ; " + direction.getX() + " " + direction.getY() + " " + direction.getZ());
 						double t = object.checkIntersection(shadowRay);
-						System.out.println(t);
 						if (t >= 0 && t <= 1) {
 							return true;
 						}
