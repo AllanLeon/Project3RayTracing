@@ -17,4 +17,11 @@ public class Point extends Coordinates {
 			w /= w;
 		}
 	}
+	
+	public double getDistanceTo(Point p) {
+		double dx = x - p.getX();
+		double dy = y - p.getY();
+		double dz = z - p.getZ();
+		return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+	}
 }
