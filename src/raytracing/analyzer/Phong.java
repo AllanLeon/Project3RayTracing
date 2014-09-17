@@ -42,10 +42,12 @@ public class Phong {
 		double b = 0;
 		for (int i = 0; i < lights.size(); i++) {
 			Color lightColor = lights.get(i).getColor();
-			double dotP = Vector.dotProduct(normal, lights.get(i).getDirection(p));
-			r += lightColor.getR()*dotP;
-			g += lightColor.getG()*dotP;
-			b += lightColor.getB()*dotP;
+			double dotP = Vector.dotProduct(normal, lights.get(i).getNormalizedDirection(p));
+			if (dotP > 0) {
+				r += lightColor.getR()*dotP;
+				g += lightColor.getG()*dotP;
+				b += lightColor.getB()*dotP;
+			}
 		}
 		r *= o.getKd() * objectColor.getR();
 		g *= o.getKd() * objectColor.getG();
@@ -58,7 +60,7 @@ public class Phong {
 		Vector normal = o.getNormal(p);
 		double vx = 0 - p.getX();
 		double vy = 0 - p.getY();
-		double vz = 0 - p.getZ();
+		double vz = -100 - p.getZ();
 		Vector obsVec = new Vector(vx, vy, vz);
 		obsVec.normalize();
 		
@@ -68,12 +70,14 @@ public class Phong {
 		int n = o.getN();
 		for (int i = 0; i < lights.size(); i++) {
 			Color lightColor = lights.get(i).getColor();
-			Vector l = Vector.invert(lights.get(i).getDirection(p));
-			Vector reflection = LightAnalyzer.perfectSpecularReflection(l, normal);
+			Vector l = Vector.invert(lights.get(i).getNormalizedDirection(p));
+			Vector reflection = GeometricAnalyzer.perfectSpecularReflection(l, normal);
 			double dotP = Vector.dotProduct(obsVec, reflection);
-			r += lightColor.getR()*Math.pow(dotP, n);
-			g += lightColor.getG()*Math.pow(dotP, n);
-			b += lightColor.getB()*Math.pow(dotP, n);
+			if (dotP > 0) {
+				r += lightColor.getR()*Math.pow(dotP, n);
+				g += lightColor.getG()*Math.pow(dotP, n);
+				b += lightColor.getB()*Math.pow(dotP, n);
+			}
 		}
 		r *= o.getKs();
 		g *= o.getKs();

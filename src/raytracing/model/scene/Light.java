@@ -22,12 +22,17 @@ public class Light {
 		return position;
 	}
 	
+	public Vector getNormalizedDirection(Point p) {
+		Vector l = getDirection(p);
+		l.normalize();
+		return l;
+	}
+	
 	public Vector getDirection(Point p) {
 		double x = position.getX() - p.getX();
 		double y = position.getY() - p.getY();
 		double z = position.getZ() - p.getZ();
 		Vector l = new Vector(x, y, z);
-		l.normalize();
 		return l;
 	}
 

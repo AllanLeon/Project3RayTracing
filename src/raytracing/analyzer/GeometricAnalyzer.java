@@ -2,7 +2,7 @@ package raytracing.analyzer;
 
 import raytracing.model.basics.Vector;
 
-public class LightAnalyzer {
+public class GeometricAnalyzer {
 
 	public static Vector perfectSpecularReflection(Vector light, Vector normal) {
 		double dotP = Vector.dotProduct(light, normal);
