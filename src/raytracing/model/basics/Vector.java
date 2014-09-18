@@ -8,10 +8,14 @@ public class Vector  extends Coordinates{
 	}
 	
 	public void normalize() {
-		double scale = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+		double scale = getScale();
 		x /= scale;
 		y /= scale;
 		z /= scale;
+	}
+	
+	public double getScale() {
+		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
 	}
 	
 	public static Vector invert(Vector a) {

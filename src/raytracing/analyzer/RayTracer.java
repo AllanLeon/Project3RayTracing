@@ -53,9 +53,14 @@ public class RayTracer {
 	}
 	
 	public boolean checkShadowRayIntersections() {
+		double minScale = 999999;
 		for (int i = 0; i < scene.getLights().size(); i++) {
 			Light light = scene.getLights().get(i);
 			double dotP = Vector.dotProduct(light.getNormalizedDirection(intersectionPoint), oMin.getNormal(intersectionPoint));
+			double lScale = light.getDirection(intersectionPoint).getScale();
+			if (lScale < minScale) {
+				minScale = lScale;
+			}
 			if (dotP > 0) {
 				for (int j = 0; j < scene.getObjects().size(); j++) {
 					Object object = scene.getObjects().get(j);
@@ -64,7 +69,13 @@ public class RayTracer {
 						Ray shadowRay = new Ray(intersectionPoint, direction);
 						double t = object.checkIntersection(shadowRay);
 						if (t >= 0 && t <= 1) {
-							return true;
+							Point shadowPoint = shadowRay.getPointAt(t);
+							double sScale = Math.sqrt(Math.pow(shadowPoint.getX() - intersectionPoint.getX(), 2) + 
+									Math.pow(shadowPoint.getY() - intersectionPoint.getY(), 2) + 
+									Math.pow(shadowPoint.getZ() - intersectionPoint.getZ(), 2));
+							if (sScale < minScale) {
+								return true;
+							}
 						}
 					}
 				}
