@@ -29,21 +29,38 @@ public class RayTracer {
 				return new Color(0, 0, 0);
 			} else {
 				intersectionPoint = ray.getPointAt(tMin);
+				Color localColor;
 				if (checkShadowRayIntersections()) {
-					Color color = Phong.environmentalComponent(oMin, scene);
-					color.checkBounds();
-					return color;
+					localColor = Phong.environmentalComponent(oMin, scene);
 				} else {
-					return Phong.chromaticPhong(intersectionPoint, oMin, scene);
+					localColor = Phong.chromaticPhong(intersectionPoint, oMin, scene);
 				}
+				localColor.checkBounds();
+				if (oMin.isMirror()) {
+					Vector mirrorDir = Vector.invert(GeometricAnalyzer.perfectSpecularReflection(ray.getDirection(), oMin.getNormal(intersectionPoint)));
+					Ray mirrorRay = new Ray(intersectionPoint, mirrorDir);
+					Color mirrorColor = rayTracing(mirrorRay, depth - 1);
+					double r = localColor.getR() + mirrorColor.getR();
+					double g = localColor.getG() + mirrorColor.getG();
+					double b = localColor.getB() + mirrorColor.getB();
+					Color globalColor = new Color(r, g, b);
+					globalColor.checkBounds();
+					return globalColor;
+				}
+				return localColor;
 			}
 		}
 	}
 	
 	public boolean checkShadowRayIntersections() {
+		double minScale = 999999;
 		for (int i = 0; i < scene.getLights().size(); i++) {
 			Light light = scene.getLights().get(i);
 			double dotP = Vector.dotProduct(light.getNormalizedDirection(intersectionPoint), oMin.getNormal(intersectionPoint));
+			double lScale = light.getDirection(intersectionPoint).getScale();
+			if (lScale < minScale) {
+				minScale = lScale;
+			}
 			if (dotP > 0) {
 				for (int j = 0; j < scene.getObjects().size(); j++) {
 					Object object = scene.getObjects().get(j);
@@ -52,7 +69,13 @@ public class RayTracer {
 						Ray shadowRay = new Ray(intersectionPoint, direction);
 						double t = object.checkIntersection(shadowRay);
 						if (t >= 0 && t <= 1) {
-							return true;
+							Point shadowPoint = shadowRay.getPointAt(t);
+							double sScale = Math.sqrt(Math.pow(shadowPoint.getX() - intersectionPoint.getX(), 2) + 
+									Math.pow(shadowPoint.getY() - intersectionPoint.getY(), 2) + 
+									Math.pow(shadowPoint.getZ() - intersectionPoint.getZ(), 2));
+							if (sScale < minScale) {
+								return true;
+							}
 						}
 					}
 				}

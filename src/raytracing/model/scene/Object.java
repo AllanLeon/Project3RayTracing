@@ -11,12 +11,22 @@ public abstract class Object {
 	private int n;
 	private double kd, ks;
 	private Color color;
+	private boolean isMirror;
+	
+	public Object(Color color, double kd, double ks, int n, boolean ismirror) {
+		this.kd = kd;
+		this.ks = ks;
+		this.color = color;
+		this.n = n;
+		this.isMirror = ismirror;
+	}
 	
 	public Object(Color color, double kd, double ks, int n) {
 		this.kd = kd;
 		this.ks = ks;
 		this.color = color;
 		this.n = n;
+		this.isMirror = false;
 	}
 
 	public double getKd() {
@@ -35,6 +45,10 @@ public abstract class Object {
 		return n;
 	}
 
+	public boolean isMirror() {
+		return isMirror;
+	}
+
 	public void setKd(double kd) {
 		this.kd = kd;
 	}
@@ -51,6 +65,10 @@ public abstract class Object {
 		this.n = n;
 	}
 	
+	public void setMirror(boolean isMirror) {
+		this.isMirror = isMirror;
+	}
+
 	public abstract Vector getNormal(Point p);
 	
 	public abstract double checkIntersection(Ray ray);

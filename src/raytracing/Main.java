@@ -60,14 +60,14 @@ public class Main extends JFrame {
 		mainPanel.setBackground(Color.BLACK);
 
 		doubleBuffer = new BufferedImage(WindowConstants.WIDTH, WindowConstants.HEIGHT, BufferedImage.TYPE_INT_RGB);
-		scene = SceneFactory.createBasicScene();
+		scene = SceneFactory.createSpiralScene();
 		paint();
 	}
 
 	private void paint() {
-		Graphics dbg = doubleBuffer.getGraphics();
-		Drawer.drawScene(dbg, scene);
-		mainPanel.getGraphics().drawImage(doubleBuffer, 0, 0, this);
+		//Graphics dbg = doubleBuffer.getGraphics();
+		Drawer.drawScene(getGraphics(), scene);
+		//mainPanel.getGraphics().drawImage(doubleBuffer, 0, 0, this);
 	}
 
 	@Override

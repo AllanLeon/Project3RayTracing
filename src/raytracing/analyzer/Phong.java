@@ -91,8 +91,7 @@ public class Phong {
 
 	private static double calculateAttenuationFactor(Light light, Point p) {
 		double distance = p.getDistanceTo(light.getPosition());
-		double attenuationFactor = 1 / (1 + 1 * distance + 1 * Math.pow(distance, 2));
-		//return Math.min(attenuationFactor, 1);
-		return 1;
+		double attenuationFactor = 1 / (0.05 + 0.001 * distance + 0.000001 * Math.pow(distance, 2));
+		return Math.min(attenuationFactor, 1);
 	}
 }
