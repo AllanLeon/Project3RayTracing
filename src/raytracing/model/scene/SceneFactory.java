@@ -88,8 +88,8 @@ public class SceneFactory {
 					double sy = 4500 - i*500;
 					double sz = 400 + j*400;
 					double r = 0;
-					double g = 1 - (0.15*j);
-					double b = 1;
+					double g = Math.abs(1 - (0.1*j));
+					double b = Math.abs(1 - (0.1*i));
 					System.out.println(r+"    "+g+"    "+b);
 					Object sphere = new Sphere(new Point(sx, sy, sz), 100, new Color(r, g, b), 0.7, 1, 7, true);
 					scene.addObject(sphere);
