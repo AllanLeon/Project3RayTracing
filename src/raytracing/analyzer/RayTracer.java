@@ -5,7 +5,6 @@ import raytracing.model.Color;
 import raytracing.model.Ray;
 import raytracing.model.basics.Point;
 import raytracing.model.basics.Vector;
-import raytracing.model.scene.Light;
 import raytracing.model.scene.Object;
 import raytracing.model.scene.Scene;
 
@@ -29,12 +28,7 @@ public class RayTracer {
 				return new Color(0, 0, 0);
 			} else {
 				intersectionPoint = ray.getPointAt(tMin);
-				Color localColor;
-				if (checkShadowRayIntersections()) {
-					localColor = Phong.environmentalComponent(oMin, scene);
-				} else {
-					localColor = Phong.chromaticPhong(intersectionPoint, oMin, scene);
-				}
+				Color localColor = Phong.chromaticPhong(intersectionPoint, oMin, scene);
 				localColor.checkBounds();
 				if (oMin.isMirror()) {
 					Vector mirrorDir = Vector.invert(GeometricAnalyzer.perfectSpecularReflection(ray.getDirection(), oMin.getNormal(intersectionPoint)));
@@ -50,38 +44,6 @@ public class RayTracer {
 				return localColor;
 			}
 		}
-	}
-	
-	public boolean checkShadowRayIntersections() {
-		double minScale = 999999;
-		for (int i = 0; i < scene.getLights().size(); i++) {
-			Light light = scene.getLights().get(i);
-			double dotP = Vector.dotProduct(light.getNormalizedDirection(intersectionPoint), oMin.getNormal(intersectionPoint));
-			double lScale = light.getDirection(intersectionPoint).getScale();
-			if (lScale < minScale) {
-				minScale = lScale;
-			}
-			if (dotP > 0) {
-				for (int j = 0; j < scene.getObjects().size(); j++) {
-					Object object = scene.getObjects().get(j);
-					if (oMin != object) {
-						Vector direction = light.getDirection(intersectionPoint);
-						Ray shadowRay = new Ray(intersectionPoint, direction);
-						double t = object.checkIntersection(shadowRay);
-						if (t >= 0 && t <= 1) {
-							Point shadowPoint = shadowRay.getPointAt(t);
-							double sScale = Math.sqrt(Math.pow(shadowPoint.getX() - intersectionPoint.getX(), 2) + 
-									Math.pow(shadowPoint.getY() - intersectionPoint.getY(), 2) + 
-									Math.pow(shadowPoint.getZ() - intersectionPoint.getZ(), 2));
-							if (sScale < minScale) {
-								return true;
-							}
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 	
 	private void checkIntersections(Ray ray) {
