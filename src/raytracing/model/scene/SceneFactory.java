@@ -48,16 +48,24 @@ public class SceneFactory {
 			Light light = new Light(lightColor, new Point(-1500+600*i -100, -700, 400));
 			scene.addLight(light);
 		}*/
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 180; i++) {
 			double sx = 600*Math.cos(i);
 			double sy = 600*Math.sin(i);
 			double sz = 300 + i*20;
 			
-			double r = rand.nextDouble();
-			double g = rand.nextDouble();
-			double b = rand.nextDouble();
-			Object sphere = new Sphere(new Point(sx, sy, sz), 80, new Color(r, g, b), 0.7, 1, 7, false);
-			scene.addObject(sphere);
+			//double r = Math.sin(i) - 0.02*i;
+			//double g = r + 0.09 * i;
+			//double b = r/g * Math.sin(r);
+
+			double r = Math.cos(i);
+			double g = Math.sin(i) - r;
+			double b = Math.cos(i) + g;
+			r += b - g;
+			
+			System.out.println(r+"    "+g+"    "+b);
+		    Object sphere = new Sphere(new Point(sx, sy, sz), 80, new Color(r, g, b), 0.7, 1, 7, false);
+		    scene.addObject(sphere);
+
 			double lx = 400*Math.cos(i);
 			double ly = 400*Math.sin(i);
 			double lz = 300 + i*20;
@@ -73,6 +81,22 @@ public class SceneFactory {
 			Light light = new Light(lightColor, new Point(x, y, z));
 			scene.addLight(light);
 		}*/
+		for (int neg = 1; neg <= 2; neg++) {
+			for (int i = 1; i < 20; i++) {
+				for (int j = 1; j < 20; j++) {
+					double sx = 4000 * Math.pow((-1), neg);
+					double sy = 4500 - i*500;
+					double sz = 400 + j*400;
+					double r = 0;
+					double g = 1 - (0.15*j);
+					double b = 1;
+					System.out.println(r+"    "+g+"    "+b);
+					Object sphere = new Sphere(new Point(sx, sy, sz), 100, new Color(r, g, b), 0.7, 1, 7, true);
+					scene.addObject(sphere);
+				}
+			}
+		}
+		
 		Object sphere1 = new Sphere(new Point(0, 0, 1000), 300,
 				new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()),
 				0.4, 1, 7, true);
