@@ -3,7 +3,6 @@ package raytracing;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +17,6 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel mainPanel;
-	private BufferedImage doubleBuffer;
 	private Scene scene;
 
 	/**
@@ -59,15 +57,12 @@ public class Main extends JFrame {
 		getContentPane().add(mainPanel);
 		mainPanel.setBackground(Color.BLACK);
 
-		doubleBuffer = new BufferedImage(WindowConstants.WIDTH, WindowConstants.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		scene = SceneFactory.createSpiralScene();
 		paint();
 	}
 
 	private void paint() {
-		//Graphics dbg = doubleBuffer.getGraphics();
 		Drawer.drawScene(getGraphics(), scene);
-		//mainPanel.getGraphics().drawImage(doubleBuffer, 0, 0, this);
 	}
 
 	@Override

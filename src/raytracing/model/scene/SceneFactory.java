@@ -17,7 +17,7 @@ public class SceneFactory {
 		Light light2 = new Light(lightColor, new Point(100, 100, 400));
 		Object sphere1 = new Sphere(new Point(0, 0, 600), 180, new Color(0, 0, 1), 0.4, 1, 7, true);
 		Object sphere2 = new Sphere(new Point(-100, 100, 300), 40, new Color(1, 0, 0), 0.4, 1, 7, true);
-		Object sphere3 = new Sphere(new Point(-80, 80, 100), 50, new Color(0, 1, 0), 0.4, 1, 7);
+		//Object sphere3 = new Sphere(new Point(-80, 80, 100), 50, new Color(0, 1, 0), 0.4, 1, 7);
 		scene.addLight(light1);
 		scene.addLight(light2);
 		scene.addObject(sphere1);
